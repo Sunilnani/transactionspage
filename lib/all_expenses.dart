@@ -18,7 +18,7 @@ class _AllExpensesState extends State<AllExpenses> {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
           body:Container(
-              color: Color(0xFFE5E5E5),
+              color: Color(0xFFF9F9F9),
               child:SingleChildScrollView(
                 child: Column(
                   children: [

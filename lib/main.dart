@@ -26,7 +26,7 @@ class _MyAppState extends State<MyApp> {
     return Scaffold(
         body:SafeArea(
           child: Container(
-            color: Color(0xFFE5E5E5),
+            color: Color(0xFFF9F9F9),
             child: SingleChildScrollView(
               child: Column(
                 children: [
