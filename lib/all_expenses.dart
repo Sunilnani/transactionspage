@@ -12,6 +12,7 @@ class _AllExpensesState extends State<AllExpenses> {
   List<String> subtitles=["Entertainment","Transportation","Transportation","Journey"];
   List<String> money=["+\$30","-\$30","+\$1300","-\$30"];
   List<String>dates=["oct 30, 2021","oct 30, 2021","oct 29,2021","oct 28, 2021"];
+  List<Color>colors=[Color(0xFF6FCF97),Color(0xFFEB5757),Color(0xFF6FCF97),Color(0xFFEB5757)];
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -32,7 +33,7 @@ class _AllExpensesState extends State<AllExpenses> {
                           Container(
                             child: Row(
                               children: [
-                                Text("AllExpenses",style: TextStyle(color: Colors.black,fontSize: 20,fontWeight: FontWeight.w600),),
+                                Text("All Expenses",style: TextStyle(color: Colors.black,fontSize: 20,fontWeight: FontWeight.w600),),
                                 SizedBox(width: 10,),
                                 Icon(Icons.keyboard_arrow_down_outlined)
                               ],
@@ -69,7 +70,7 @@ class _AllExpensesState extends State<AllExpenses> {
                         ),
                       ),
                     ),
-                    SizedBox(height: 15,),
+                    SizedBox(height: 25,),
                     Container(
                         padding: EdgeInsets.symmetric(horizontal: 15),
                         alignment: Alignment.centerLeft,
@@ -86,6 +87,7 @@ class _AllExpensesState extends State<AllExpenses> {
                             icons: icons[index],
                             money: money[index],
                             date: dates[index],
+                            color: colors[index],
                           );
                         },
                       ),
@@ -124,6 +126,7 @@ class AllIncomeTransactions extends StatelessWidget {
     this.subtitle,
     this.money,
     this.date,
+    this.color,
     Key key,
   }) : super(key: key);
   final String title;
@@ -131,6 +134,7 @@ class AllIncomeTransactions extends StatelessWidget {
   final String subtitle;
   final String money;
   final String date;
+  final Color color;
 
   @override
   Widget build(BuildContext context) {
@@ -177,7 +181,7 @@ class AllIncomeTransactions extends StatelessWidget {
                   child:Column(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
-                      Text(money,style: TextStyle(color: Color(0xFF6FCF97),fontSize: 16,fontWeight: FontWeight.w600),),
+                      Text(money,style: TextStyle(color: color,fontSize: 16,fontWeight: FontWeight.w600),),
                       SizedBox(height: 8,),
                       Text(date,style: TextStyle(fontWeight: FontWeight.w400,fontSize: 10),)
                     ],

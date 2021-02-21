@@ -125,9 +125,15 @@ class _MyAppState extends State<MyApp> {
                                     ),
                                 ),
                                 SizedBox(height: 10,),
-                                Text("TOTAL INCOME",style: TextStyle(color: Color(0xFF828282),fontSize: 12,fontWeight: FontWeight.w600),),
+                                Padding(
+                                  padding: const EdgeInsets.only(right:28.0),
+                                  child: Text("TOTAL INCOME",style: TextStyle(color: Color(0xFF828282),fontSize: 12,fontWeight: FontWeight.w600),),
+                                ),
                                 SizedBox(height: 5,),
-                                Text("+\$23,000",style: TextStyle(color: Colors.black,fontSize: 20,fontWeight: FontWeight.w600),)
+                                Padding(
+                                  padding: const EdgeInsets.only(right:32.0),
+                                  child: Text("+\$23,000",style: TextStyle(color: Colors.black,fontSize: 20,fontWeight: FontWeight.w600),),
+                                )
                               ],
                             ),
                           ),
@@ -159,9 +165,15 @@ class _MyAppState extends State<MyApp> {
                                   ),
                                 ),
                                 SizedBox(height: 10,),
-                                Text("TOTAL EXPENSE",style: TextStyle(color: Color(0xFF828282),fontSize: 12,fontWeight: FontWeight.w600),),
+                                Padding(
+                                  padding: const EdgeInsets.only(right:28.0),
+                                  child: Text("TOTAL EXPENSE",style: TextStyle(color: Color(0xFF828282),fontSize: 12,fontWeight: FontWeight.w600),),
+                                ),
                                 SizedBox(height: 5,),
-                                Text("-\$23,000",style: TextStyle(color: Colors.black,fontSize: 20,fontWeight: FontWeight.w600),)
+                                Padding(
+                                  padding: const EdgeInsets.only(right:32.0),
+                                  child: Text("-\$23,000",style: TextStyle(color: Colors.black,fontSize: 20,fontWeight: FontWeight.w600),),
+                                )
                               ],
                             ),
                           ),
@@ -174,7 +186,7 @@ class _MyAppState extends State<MyApp> {
                     padding: EdgeInsets.symmetric(horizontal: 15),
                     alignment: Alignment.centerLeft,
                       child: Text("Recent Transaction",style: TextStyle(color: Colors.black,fontWeight: FontWeight.w600,fontSize: 16),)),
-                  SizedBox(height: 15,),
+                  SizedBox(height: 20,),
                   Container(
                     child: ListView.builder(itemCount:titles.length,
                       shrinkWrap: true,
