@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_transactions/edit_transactions.dart';
+import 'package:flutter_transactions/details.dart';
 import 'package:flutter_transactions/main.dart';
 class AddTransaction extends StatefulWidget {
   @override
@@ -7,6 +7,8 @@ class AddTransaction extends StatefulWidget {
 }
 
 class _AddTransactionState extends State<AddTransaction> {
+  List _options=["Transaction Type","Income","About"];
+  String _selectedItem = '';
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -107,23 +109,23 @@ class _AddTransactionState extends State<AddTransaction> {
                       child: TextField(
                         cursorColor: Theme.of(context).cursorColor,
                         decoration: InputDecoration(
-                          hintText: "Transaction type",
+                          hintText: _selectedItem,
                           hintStyle: TextStyle(color: Color(0xFF828282),fontSize: 16,fontWeight: FontWeight.w400),
                           //suffixIcon: Icon(Icons.keyboard_arrow_down),
-                          suffixIcon:   PopupMenuButton(
-                              icon: Icon(Icons.keyboard_arrow_down),
-                              itemBuilder:(BuildContext context)=> <PopupMenuEntry>[
-                                PopupMenuItem(
-                                    child:ListTile(
-                                      title: Text("Income",style: TextStyle(color: Colors.black,fontSize: 16,fontWeight: FontWeight.w600),),
-                                    )
-                                ),
-                                PopupMenuItem(
-                                    child:ListTile(
-                                      title: Text("cash",style: TextStyle(color: Colors.black,fontSize: 16,fontWeight: FontWeight.w600),),
-                                    )
-                                ),
-                              ]
+                          suffixIcon:    PopupMenuButton(
+                            itemBuilder: (BuildContext bc) {
+                              return _options
+                                  .map((day) => PopupMenuItem(
+                                child: Text(day),
+                                value: day,
+                              ))
+                                  .toList();
+                            },
+                            onSelected: (value) {
+                              setState(() {
+                                _selectedItem = value;
+                              });
+                            },
                           ),
                             border: InputBorder.none
                         ),
@@ -223,7 +225,7 @@ class _AddTransactionState extends State<AddTransaction> {
                       onPressed: (){
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => EditTransactions()),
+                          MaterialPageRoute(builder: (context) => Details()),
                         );
                       },
                       child: Text("Add Transaction",style: TextStyle(fontWeight: FontWeight.w600,fontSize: 14),),

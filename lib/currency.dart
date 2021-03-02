@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-
-import 'all_income.dart';
 import 'main.dart';
 class Currency extends StatefulWidget {
   @override
@@ -8,9 +6,10 @@ class Currency extends StatefulWidget {
 }
 
 class _CurrencyState extends State<Currency> {
-  List<String> flags=["img/europe.png","img/us.png","img/canada.png","img/aus.png","img/swiss.png","img/mexico.png","img/russia.png",];
-  List<String>countrynames=["EUR","USD","CAD","AUD","CHF","MXN","RUB",];
-  List<String>countrydollars=["EURO","US Dollar","Canadian Dollar","Australian Dollar","Swiss Franc","Mexican Peso","Russian Rubie",];
+  List<String> flags=["img/europe.png","img/us.png","img/canada.png","img/aus.png","img/swiss.png","img/mexico.png","img/russia.png","img/ind1.png"];
+  List<String>countrynames=["EUR","USD","CAD","AUD","CHF","MXN","RUB","Ind"];
+  List<String>countrydollars=["EURO","US Dollar","Canadian Dollar","Australian Dollar","Swiss Franc","Mexican Peso","Russian Rubie","Rupees"];
+  String    countryname = "INR";
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -39,50 +38,46 @@ class _CurrencyState extends State<Currency> {
             child: SingleChildScrollView(
               child: Column(
                 children: [
-                  Container(
-                    child: ListView.builder(
+                  ListView.separated(
+                      itemCount: countrynames.length,
                       shrinkWrap: true,
-                      scrollDirection: Axis.vertical,
-                      itemCount: flags.length,
-                      physics: NeverScrollableScrollPhysics(),
-                      itemBuilder: (context,index){
-                        return CurrencySelection(
-                          flagimage: flags[index],
-                          countryname: countrynames[index],
-                          countrydollar: countrydollars[index],
+                      itemBuilder: (context , index){
+                        return InkWell(
+                          onTap: (){
+                            setState(() {
+                              countryname = countrydollars[index];
+                            });
+                          },
+                          child: ListTile(
+                              leading: CircleAvatar(
+                                backgroundColor: Colors.blueGrey[50],
+                                radius: 22,
+                                child: Image.asset(flags[index] ,height: 25,width: 25,),
+                                // backgroundImage: AssetImage(countryFlag[index]),
+
+                              ),
+                              title: Row(
+                                children: [
+                                  Text(countrydollars[index], style: TextStyle(color: Colors.grey , fontSize: 13),),
+                                  SizedBox(width: 10,),
+                                  Text(countrynames[index],style: TextStyle(color: Colors.black , fontSize: 14), ),
+                                ],
+                              ),
+                              trailing:  CircleAvatar(
+                                radius: 18,
+                                backgroundColor:   countryname== countrydollars[index] ?Color(0xffd8f2e3) : Colors.white,
+                                child: Icon(Icons.verified_outlined , size: 18, color: countryname== countrydollars[index] ?Colors.green: Colors.white,),
+                              )
+
+                          ),
+
                         );
                       },
-                    ),
-                  ),
-                  Container(
-                    height: 65,
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal:22.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Row(
-                            children: [
-                              CircleAvatar(
-                                radius: 22,
-                                child: Image.asset("img/ind1.png",height: 20,width: 20,),
-                                backgroundColor: Colors.black12,
-                              ),
-                              SizedBox(width: 5,),
-                              Text("Ind",style: TextStyle(color: Color(0xFF828282),fontWeight: FontWeight.w400,fontSize: 14),),
-                              SizedBox(width: 5,),
-                              Text("Rupees",style: TextStyle(color: Colors.black,fontWeight: FontWeight.w400,fontSize: 14),)
-                            ],
-                          ),
-                          CircleAvatar(
-                            radius: 15,
-                            child: Icon(Icons.verified_outlined,size: 15,),
-                            backgroundColor: Color(0xFFF1FAF5),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
+                      separatorBuilder: (context, index) {
+                        return SizedBox(
+                          height: 20,
+                        );
+                      }),
                   SizedBox(height: 15,),
                   Padding(
                     padding: const EdgeInsets.only(right:15.0),
@@ -114,46 +109,6 @@ class _CurrencyState extends State<Currency> {
           ),
         ),
       ),
-    );
-  }
-}
-
-class CurrencySelection extends StatelessWidget {
-  const CurrencySelection({
-    this.flagimage,
-    this.countryname,
-    this.countrydollar,
-    Key key,
-  }) : super(key: key);
-  final String flagimage;
-  final String countryname;
-  final String countrydollar;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Container(
-          height: 65,
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal:22.0),
-          child: Row(
-           children: [
-           CircleAvatar(
-           radius: 22,
-           child: Image.asset(flagimage,height: 20,width: 20,),
-           backgroundColor: Colors.black12,
-           ),
-           SizedBox(width: 5,),
-          Text(countryname,style: TextStyle(color: Color(0xFF828282),fontWeight: FontWeight.w400,fontSize: 14),),
-          SizedBox(width: 5,),
-           Text(countrydollar,style: TextStyle(color: Colors.black,fontWeight: FontWeight.w400,fontSize: 14),)
-    ],
-    ),
-    ),
-        ),
-        SizedBox(height: 8,)
-      ],
     );
   }
 }

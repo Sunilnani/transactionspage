@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_transactions/add_transaction.dart';
 import 'package:flutter_transactions/all_expenses.dart';
 import 'all_income.dart';
 import 'currency.dart';
+import 'details.dart';
 void main() {
+  bool darkTheme = false;
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
     home: MyApp(),
+    theme: darkTheme ? ThemeData.dark() : ThemeData.light(),
   ));
 }
 class MyApp extends StatefulWidget {
@@ -20,7 +24,8 @@ class _MyAppState extends State<MyApp> {
   List<String> money=["+\$30","-\$30","+\$1300","-\$30"];
   List<String>dates=["oct 30, 2021","oct 30, 2021","oct 29,2021","oct 28, 2021"];
   List<Color>colors=[Color(0xFF6FCF97),Color(0xFFEB5757),Color(0xFF6FCF97),Color(0xFFEB5757)];
-
+  bool darkTheme = false;
+  int selectedValue =2;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,7 +47,46 @@ class _MyAppState extends State<MyApp> {
                             children: [
                               Text("Dashboard",style: TextStyle(color: Colors.black,fontSize: 20,fontWeight: FontWeight.w600),),
                               SizedBox(width: 10,),
-                              Icon(Icons.keyboard_arrow_down_outlined)
+                              DropdownButton(
+                                value: selectedValue,
+                                items: [
+                                  DropdownMenuItem(
+                                    child: InkWell(
+                                        onTap: (){
+                                          Navigator.push(context,
+                                            MaterialPageRoute(
+                                              builder: (context) => Details(
+                                              ),
+                                            ),
+                                          );
+                                        },
+                                        child: Text("Details")),
+                                    value: 1,
+                                  ),
+                                  DropdownMenuItem(
+                                    child: InkWell(
+                                        onTap: (){
+                                          Navigator.push(context,
+                                            MaterialPageRoute(
+                                              builder: (context) => MyApp(
+                                              ),
+                                            ),
+                                          );
+                                        },
+                                        child: Text("opt")),
+                                    value: 2,
+                                  ),
+                                  DropdownMenuItem(
+                                      child: Text("Others"),
+                                      value: 3
+                                  ),
+                                ],
+                                  onChanged: (value) {
+                                    setState(() {
+                                      selectedValue = value;
+                                    });
+                                  }
+                              )
                             ],
                           ),
                         ),
@@ -225,9 +269,25 @@ class _MyAppState extends State<MyApp> {
                 ),
                 backgroundColor: Color(0xFF006AF6),
               ),
-          )
+          ),
+      drawer: Drawer(
+        child: ListView(
+          children: <Widget>[
+            ListTile(
+              title: Text("Dark Theme"),
+              trailing: Switch(
+                value: darkTheme,
+                onChanged: (changed) {
+                  setState(() {
+                    darkTheme = changed;
+                  });
+                },
+              ),
+            )
+          ],
+        ),
+      ),
       );
-
   }
 }
 
