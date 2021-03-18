@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_transactions/details.dart';
 import 'package:flutter_transactions/main.dart';
+import 'package:intl/intl.dart';
 class AddTransaction extends StatefulWidget {
   @override
   _AddTransactionState createState() => _AddTransactionState();
@@ -8,9 +9,27 @@ class AddTransaction extends StatefulWidget {
 
 class _AddTransactionState extends State<AddTransaction> {
   List _options=["Transaction Type","Income","About"];
-  String _selectedItem = '';
+  String _selectedItem = 'Item';
+  DateTime currentDate = new DateTime.now();
+  Future<Null> _selectdate(BuildContext context) async{
+    final DateTime _seldate = await showDatePicker(
+        context: context,
+        initialDate: currentDate,
+        firstDate: DateTime(1990),
+        lastDate: DateTime(2027),
+        builder: (context,child) {
+          return SingleChildScrollView(child: child,);
+        }
+    );
+    if(_seldate!=null) {
+      setState(() {
+        currentDate = _seldate;
+      });
+    }
+  }
   @override
   Widget build(BuildContext context) {
+    String _formattedate = new DateFormat.yMMMd().format(currentDate);
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
@@ -43,14 +62,9 @@ class _AddTransactionState extends State<AddTransaction> {
                       height: 50,
                       decoration: BoxDecoration(
                         shape: BoxShape.rectangle,
-                        borderRadius: BorderRadius.only(topRight: Radius.circular(4),topLeft: Radius.circular(4)),
+                        borderRadius: BorderRadius.all(Radius.circular(8)),
                         color: Colors.grey[200],
-                        boxShadow: [BoxShadow(
-                            color: Colors.grey[400],
-                            offset: Offset(0,3),
-                            spreadRadius: 0.5,
-                            blurRadius: 1
-                        )],
+
                       ),
                         child: TextField(
                           cursorColor: Theme.of(context).cursorColor,
@@ -70,14 +84,8 @@ class _AddTransactionState extends State<AddTransaction> {
                       height: 50,
                       decoration: BoxDecoration(
                         shape: BoxShape.rectangle,
-                        borderRadius: BorderRadius.only(topRight: Radius.circular(4),topLeft: Radius.circular(4)),
+                        borderRadius: BorderRadius.all(Radius.circular(8)),
                         color: Colors.grey[200],
-                        boxShadow: [BoxShadow(
-                            color: Colors.grey[400],
-                            offset: Offset(0,3),
-                            spreadRadius: 0.5,
-                            blurRadius: 1
-                        )],
                       ),
                       child: TextField(
                         cursorColor: Theme.of(context).cursorColor,
@@ -97,14 +105,8 @@ class _AddTransactionState extends State<AddTransaction> {
                       height: 50,
                       decoration: BoxDecoration(
                         shape: BoxShape.rectangle,
-                        borderRadius: BorderRadius.only(topRight: Radius.circular(4),topLeft: Radius.circular(4)),
+                        borderRadius: BorderRadius.all(Radius.circular(8)),
                         color: Colors.grey[200],
-                        boxShadow: [BoxShadow(
-                            color: Colors.grey[400],
-                            offset: Offset(0,3),
-                            spreadRadius: 0.5,
-                            blurRadius: 1
-                        )],
                       ),
                       child: TextField(
                         cursorColor: Theme.of(context).cursorColor,
@@ -126,6 +128,7 @@ class _AddTransactionState extends State<AddTransaction> {
                                 _selectedItem = value;
                               });
                             },
+                            child: Icon(Icons.keyboard_arrow_down_outlined),
                           ),
                             border: InputBorder.none
                         ),
@@ -140,24 +143,43 @@ class _AddTransactionState extends State<AddTransaction> {
                       height: 50,
                       decoration: BoxDecoration(
                         shape: BoxShape.rectangle,
-                        borderRadius: BorderRadius.only(topRight: Radius.circular(4),topLeft: Radius.circular(4)),
+                        borderRadius: BorderRadius.all(Radius.circular(8)),
                         color: Colors.grey[200],
-                        boxShadow: [BoxShadow(
-                            color: Colors.grey[400],
-                            offset: Offset(0,3),
-                            spreadRadius: 0.5,
-                            blurRadius: 1
-                        )],
+
                       ),
                       child: TextField(
                         cursorColor: Theme.of(context).cursorColor,
                         decoration: InputDecoration(
                           hintText: "Tags",
                           hintStyle: TextStyle(color: Color(0xFF828282),fontSize: 16,fontWeight: FontWeight.w400),
-                          suffixIcon: Icon(Icons.keyboard_arrow_down),
                             border: InputBorder.none
                         ),
                       ),
+                    ),
+                  ),
+                  SizedBox(height: 35,),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal:18.0),
+                    child: Container(
+                      padding: EdgeInsets.symmetric(horizontal: 18 ),
+                      height: 50,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.rectangle,
+                        borderRadius: BorderRadius.all(Radius.circular(8)),
+                        color: Color(0xffeaeaea),
+                      ),
+
+                      child:Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          currentDate ==  Null ?
+                          Text('When'  ,style: TextStyle(color: Colors.grey[400],fontSize: 14),) : Text("${_formattedate}"),
+                          IconButton(onPressed: (){
+                            _selectdate(context);
+                          },icon: Icon(Icons.calendar_today,color: Colors.grey[400],),
+                          )
+                        ],),
+
                     ),
                   ),
                   SizedBox(height: 35,),
@@ -168,42 +190,9 @@ class _AddTransactionState extends State<AddTransaction> {
                       height: 50,
                       decoration: BoxDecoration(
                         shape: BoxShape.rectangle,
-                        borderRadius: BorderRadius.only(topRight: Radius.circular(4),topLeft: Radius.circular(4)),
+                        borderRadius: BorderRadius.all(Radius.circular(8)),
                         color: Colors.grey[200],
-                        boxShadow: [BoxShadow(
-                            color: Colors.grey[400],
-                            offset: Offset(0,3),
-                            spreadRadius: 0.5,
-                            blurRadius: 1
-                        )],
-                      ),
-                      child: TextField(
-                        cursorColor: Theme.of(context).cursorColor,
-                        decoration: InputDecoration(
-                          hintText: "When",
-                          hintStyle: TextStyle(color: Color(0xFF828282),fontSize: 16,fontWeight: FontWeight.w400),
-                          suffixIcon: Icon(Icons.calendar_today,size: 15,),
-                            border: InputBorder.none
-                        ),
-                      ),
-                    ),
-                  ),
-                  SizedBox(height: 35,),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal:18.0),
-                    child: Container(
-                      padding: EdgeInsets.symmetric(horizontal: 10),
-                      height: 50,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.rectangle,
-                        borderRadius: BorderRadius.only(topRight: Radius.circular(4),topLeft: Radius.circular(4)),
-                        color: Colors.grey[200],
-                        boxShadow: [BoxShadow(
-                            color: Colors.grey[400],
-                            offset: Offset(0,3),
-                            spreadRadius: 0.5,
-                            blurRadius: 1
-                        )],
+
                       ),
                       child: TextField(
                         cursorColor: Theme.of(context).cursorColor,

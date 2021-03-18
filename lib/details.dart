@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_transactions/add_transaction.dart';
 
 import 'main.dart';
 class Details extends StatefulWidget {
@@ -78,7 +79,12 @@ class _DetailsState extends State<Details> {
                    height: 50,
                    width: 100,
                    child: RaisedButton(
-                     onPressed: () {},
+                     onPressed: () {
+                       Navigator.push(
+                         context,
+                         MaterialPageRoute(builder: (context) => AddTransaction()),
+                       );
+                     },
                      child: Row(
                        children: [
                          Icon(Icons.edit,size: 18,),

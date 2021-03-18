@@ -260,7 +260,7 @@ class _MyAppState extends State<MyApp> {
                 onPressed: (){
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => AllIncome()),
+                    MaterialPageRoute(builder: (context) => AddTransaction()),
                   );
                 },
                 child: Icon(
